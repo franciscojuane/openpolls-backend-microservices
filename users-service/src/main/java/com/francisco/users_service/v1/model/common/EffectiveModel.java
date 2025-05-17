@@ -1,4 +1,4 @@
-package com.francisco.users_service.model.common;
+package com.francisco.users_service.v1.model.common;
 
 import java.time.LocalDateTime;
 

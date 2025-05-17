@@ -1,10 +1,10 @@
-package com.francisco.users_service.dto.mappers;
+package com.francisco.users_service.v1.dto.mappers;
 
 import org.springframework.stereotype.Component;
 
-import com.francisco.users_service.dto.UserRequest;
-import com.francisco.users_service.dto.UserResponse;
-import com.francisco.users_service.model.User;
+import com.francisco.users_service.v1.dto.UserRequest;
+import com.francisco.users_service.v1.dto.UserResponse;
+import com.francisco.users_service.v1.model.User;
 
 @Component
 public class UserMapper {

@@ -1,4 +1,4 @@
-package com.francisco.users_service.dto;
+package com.francisco.users_service.v1.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

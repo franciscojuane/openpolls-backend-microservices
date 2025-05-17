@@ -1,4 +1,4 @@
-package com.francisco.users_service.controller;
+package com.francisco.users_service.v1.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.francisco.users_service.dto.UserRequest;
-import com.francisco.users_service.dto.UserResponse;
-import com.francisco.users_service.dto.mappers.UserMapper;
-import com.francisco.users_service.model.User;
-import com.francisco.users_service.repository.UserRepository;
-import com.francisco.users_service.service.UserService;
+import com.francisco.users_service.v1.dto.UserRequest;
+import com.francisco.users_service.v1.dto.UserResponse;
+import com.francisco.users_service.v1.dto.mappers.UserMapper;
+import com.francisco.users_service.v1.model.User;
+import com.francisco.users_service.v1.repository.UserRepository;
+import com.francisco.users_service.v1.service.UserService;
 
 import jakarta.validation.Valid;
 

@@ -1,4 +1,4 @@
-package com.francisco.users_service.configuration;
+package com.francisco.users_service.v1.configuration;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.francisco.users_service.dto.ErrorResponse;
+import com.francisco.users_service.v1.dto.ErrorResponse;
 
 
 @ControllerAdvice

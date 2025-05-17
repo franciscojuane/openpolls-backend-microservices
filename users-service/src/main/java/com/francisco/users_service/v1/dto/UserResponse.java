@@ -1,9 +1,9 @@
-package com.francisco.users_service.dto;
+package com.francisco.users_service.v1.dto;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 
-import com.francisco.users_service.model.Role;
+import com.francisco.users_service.v1.model.Role;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,9 +1,9 @@
-package com.francisco.users_service.model;
+package com.francisco.users_service.v1.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.francisco.users_service.model.common.AbstractModel;
-import com.francisco.users_service.model.common.Constants;
+import com.francisco.users_service.v1.model.common.AbstractModel;
+import com.francisco.users_service.v1.model.common.Constants;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

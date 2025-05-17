@@ -1,4 +1,4 @@
-package com.francisco.users_service.service;
+package com.francisco.users_service.v1.service;
 
 import java.util.Optional;
 
@@ -8,8 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.francisco.users_service.model.User;
-import com.francisco.users_service.repository.UserRepository;
+import com.francisco.users_service.v1.model.User;
+import com.francisco.users_service.v1.repository.UserRepository;
 
 import jakarta.validation.Valid;
 

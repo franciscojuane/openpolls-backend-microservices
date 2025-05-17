@@ -1,4 +1,4 @@
-package com.francisco.users_service.utils;
+package com.francisco.users_service.v1.utils;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -7,12 +7,12 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.francisco.users_service.model.Permission;
-import com.francisco.users_service.model.Role;
-import com.francisco.users_service.model.User;
-import com.francisco.users_service.repository.PermissionRepository;
-import com.francisco.users_service.repository.RoleRepository;
-import com.francisco.users_service.service.UserService;
+import com.francisco.users_service.v1.model.Permission;
+import com.francisco.users_service.v1.model.Role;
+import com.francisco.users_service.v1.model.User;
+import com.francisco.users_service.v1.repository.PermissionRepository;
+import com.francisco.users_service.v1.repository.RoleRepository;
+import com.francisco.users_service.v1.service.UserService;
 
 @Component
 public class DataLoader implements InitializingBean {
