@@ -1,4 +1,4 @@
-package com.francisco.users_service.v1.configuration;
+package com.francisco.users_service.configuration;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;

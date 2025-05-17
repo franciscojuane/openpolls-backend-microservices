@@ -1,4 +1,4 @@
-package com.francisco.users_service.v1.utils;
+package com.francisco.users_service.utils;
 
 import java.util.HashSet;
 import java.util.Set;
