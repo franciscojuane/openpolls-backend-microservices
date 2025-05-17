@@ -8,8 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.francisco.openpolls.model.User;
-import com.francisco.openpolls.repository.UserRepository;
+import com.francisco.users_service.model.User;
+import com.francisco.users_service.repository.UserRepository;
 
 import jakarta.validation.Valid;
 

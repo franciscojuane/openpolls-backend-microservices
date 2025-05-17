@@ -2,9 +2,9 @@ package com.francisco.users_service.dto.mappers;
 
 import org.springframework.stereotype.Component;
 
-import com.francisco.openpolls.dto.UserRequest;
-import com.francisco.openpolls.dto.UserResponse;
-import com.francisco.openpolls.model.User;
+import com.francisco.users_service.dto.UserRequest;
+import com.francisco.users_service.dto.UserResponse;
+import com.francisco.users_service.model.User;
 
 @Component
 public class UserMapper {
@@ -20,7 +20,6 @@ public class UserMapper {
 	            .creationTime(user.getCreationTime())
 	            .updateTime(user.getUpdateTime())
 	            .roles(user.getRoles())
-	            .authorities(user.getAuthorities())
 	            .build();
 	}
 	

@@ -1,13 +1,9 @@
 package com.francisco.users_service.dto;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
-import org.springframework.security.core.GrantedAuthority;
-
-import com.francisco.openpolls.model.Role;
+import com.francisco.users_service.model.Role;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,11 +33,6 @@ public class UserResponse {
 	public LocalDateTime updateTime;
 	
 	public Set<Role> roles;
-	
-	public Collection<? extends GrantedAuthority> authorities;
-
-
-
 
 
 }

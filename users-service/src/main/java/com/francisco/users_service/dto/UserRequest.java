@@ -1,9 +1,6 @@
 package com.francisco.users_service.dto;
 
 import java.time.LocalDateTime;
-import java.util.Set;
-
-import com.francisco.openpolls.model.Role;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

@@ -1,14 +1,13 @@
 package com.francisco.users_service.configuration;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.francisco.openpolls.dto.ErrorResponse;
-
-import jakarta.validation.ConstraintViolationException;
+import com.francisco.users_service.dto.ErrorResponse;
 
 
 @ControllerAdvice
