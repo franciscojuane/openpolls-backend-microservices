@@ -31,8 +31,6 @@ public class Poll extends EffectiveModel{
 	
 	private String description;
 	
-	@ManyToOne
-	@JoinColumn(name = "USER_ID")
 	private Long createdByUserId;
 	
 	@Default
