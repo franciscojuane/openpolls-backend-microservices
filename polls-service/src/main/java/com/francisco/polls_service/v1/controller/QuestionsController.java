@@ -21,7 +21,7 @@ import com.francisco.polls_service.v1.service.PollService;
 import com.francisco.polls_service.v1.service.QuestionService;
 
 @RestController
-@RequestMapping("/polls/{pollId}/questions")
+@RequestMapping("/v1/polls/{pollId}/questions")
 public class QuestionsController {
 
 	@Autowired

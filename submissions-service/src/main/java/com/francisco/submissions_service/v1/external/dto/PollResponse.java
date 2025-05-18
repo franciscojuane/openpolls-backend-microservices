@@ -1,9 +1,7 @@
-package com.francisco.polls_service.v1.dto;
+package com.francisco.submissions_service.v1.external.dto;
 
-import com.francisco.polls_service.v1.model.common.EffectiveModel;
-import com.francisco.polls_service.v1.model.enums.SubmissionLimitCriteria;
+import com.francisco.submissions_service.v1.model.enums.SubmissionLimitCriteria;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,11 +11,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PollResponse extends EffectiveModel{
-
-	private Long id;
+public class PollResponse {
 	
-	@NotNull
+	private Long id;
+
 	private String name;
 	
 	private String description;
@@ -29,5 +26,4 @@ public class PollResponse extends EffectiveModel{
 	private String pollKey;
 	
 	private SubmissionLimitCriteria submissionLimitCriteria;
-
 }

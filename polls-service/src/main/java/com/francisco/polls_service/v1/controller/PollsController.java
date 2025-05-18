@@ -25,7 +25,7 @@ import com.francisco.polls_service.v1.service.QuestionService;
 import jakarta.transaction.Transactional;
 
 @RestController
-@RequestMapping("/polls")
+@RequestMapping("/v1/polls")
 public class PollsController {
 
 	@Autowired
@@ -53,6 +53,13 @@ public class PollsController {
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getPollById(@PathVariable Long id) {
 		Poll poll = pollService.findById(id);
+		PollResponse pollResponse = pollMapper.pollToPollResponse(poll);
+		return ResponseEntity.ok(pollResponse);
+	}
+	
+	@GetMapping("/byPollKey/{key}")
+	public ResponseEntity<?> getPollByKey(@PathVariable String key) {
+		Poll poll = pollService.findByPollKey(key);
 		PollResponse pollResponse = pollMapper.pollToPollResponse(poll);
 		return ResponseEntity.ok(pollResponse);
 	}

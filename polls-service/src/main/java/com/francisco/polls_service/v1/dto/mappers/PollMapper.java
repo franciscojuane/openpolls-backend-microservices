@@ -17,6 +17,7 @@ public class PollMapper {
 	public PollResponse pollToPollResponse(Poll poll) {
 		PollResponse pollResponse = new PollResponse();
 		pollResponse.setCreatedByUserId(poll.getCreatedByUserId());
+		pollResponse.setId(poll.getId());
 		pollResponse.setName(poll.getName());
 		pollResponse.setPollKey(poll.getPollKey());
 		pollResponse.setDescription(poll.getDescription());
