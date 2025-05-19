@@ -27,7 +27,7 @@ import com.francisco.users_service.v1.service.UserService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/v1/users")
 public class UsersController {
 
 	@Autowired

@@ -2,3 +2,33 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: users-service-v1
+          uri: lb://users-service
+          predicates:
+            - Path=/v1/users/**
+          filters:
+            - RemoveRequestHeader= Cookie,Set-Cookie
+        - id: polls-service-v1
+          uri: lb://polls-service
+          predicates:
+            - Path=/v1/polls/**
+          filters:
+            - RemoveRequestHeader= Cookie,Set-Cookie
+        - id: auth-service-v1
+          uri: lb://auth-service
+          predicates:
+            - Path=/v1/auth/**
+          filters:
+            - RemoveRequestHeader= Cookie,Set-Cookie
+        - id: submissions-service-v1
+          uri: lb://submissions-service
+          predicates:
+            - Path=/v1/submissions/**
+          filters:
+            - RemoveRequestHeader= Cookie,Set-Cookie
+server:
+  port: 5000

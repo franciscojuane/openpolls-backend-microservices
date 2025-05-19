@@ -17,7 +17,7 @@ import com.francisco.submissions_service.v1.service.SubmissionService;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("/public/polls/{pollKey}/submissions")
+@RequestMapping("/public/v1/submissions")
 public class PublicSubmissionsController {
 
 	@Autowired
@@ -29,7 +29,7 @@ public class PublicSubmissionsController {
 	@Autowired
 	PollServiceClient pollServiceClient;
 	
-	@PostMapping("")
+	@PostMapping("/byPoll/{pollKey}/")
 	public ResponseEntity<?> submit(@RequestBody SubmissionRequest submissionRequest, @PathVariable String pollKey, HttpServletRequest httpServletRequest){
 		PollResponse pollResponse = pollServiceClient.findByPollKey(pollKey);
 		if (pollResponse == null) 

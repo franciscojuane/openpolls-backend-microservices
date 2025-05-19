@@ -22,7 +22,7 @@ import com.francisco.submissions_service.v1.service.SubmissionAnswerService;
 import com.francisco.submissions_service.v1.service.SubmissionService;
 
 @RestController
-@RequestMapping("/v1/polls/{pollId}/submissions")
+@RequestMapping("/v1/submissions")
 public class SubmissionsController {
 
 	@Autowired
@@ -35,7 +35,7 @@ public class SubmissionsController {
 	PollServiceClient pollServiceClient;
 	
 	
-	@GetMapping("/table")
+	@GetMapping("/byPoll/{pollId}/table")
 	public ResponseEntity<?> generateTable(@PathVariable Long pollId, Pageable pageable){
 		SubmissionTableResponse submissionsTable = generateSubmissionsMapForPollId(pollId, pageable);
 		return ResponseEntity.ok(submissionsTable);
@@ -54,13 +54,13 @@ public class SubmissionsController {
 		return submissionTableResponse;
 	}
 	
-	@GetMapping("/answerCountByQuestion/{questionId}")
+	@GetMapping("/byPoll/{pollId}/answerCountByQuestion/{questionId}")
 	public ResponseEntity<?> answerCountByQuestion(@PathVariable Long pollId, @PathVariable Long questionId, Pageable pageable){
 		Page<AnswerCount> answerCount = submissionService.generateAnswerCountByPollIdAndQuestionId(pollId, questionId, pageable);
 		return ResponseEntity.ok(answerCount);
 	}
 	
-	@GetMapping("/answersByQuestion/{questionId}")
+	@GetMapping("/byPoll/{pollId}/answersByQuestion/{questionId}")
 	public ResponseEntity<?> answerByQuestion(@PathVariable Long questionId, @PathVariable Long pollId, Pageable pageable){
 		Page<String> answers = submissionService.generateAnswersByPollIdAndQuestionId(pollId, questionId, pageable);
 		return ResponseEntity.ok(answers);

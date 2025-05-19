@@ -15,7 +15,7 @@ import com.francisco.polls_service.v1.service.QuestionService;
 import jakarta.validation.ValidationException;
 
 @RestController
-@RequestMapping("/public/polls")
+@RequestMapping("/public/v1/polls")
 public class PublicPollsController {
 	
 	@Autowired
