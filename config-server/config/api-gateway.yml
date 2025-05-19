@@ -5,6 +5,16 @@ eureka:
 spring:
   cloud:
     gateway:
+      globalcors:
+        corsConfigurations:
+          "[/**]":
+            allowedOrigins: "http://localhost:8080"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+            allowedHeaders: "*"
       routes:
         - id: users-service-v1
           uri: lb://users-service
@@ -12,6 +22,13 @@ spring:
             - Path=/v1/users/**
           filters:
             - RemoveRequestHeader= Cookie,Set-Cookie
+        - id: polls-service-legacy
+          uri: lb://polls-service
+          predicates:
+            - Path=/polls/**
+          filters:
+            - RemoveRequestHeader= Cookie,Set-Cookie
+            - RewritePath=/polls(?<args>.*),/v1/polls${args}
         - id: polls-service-v1
           uri: lb://polls-service
           predicates:
