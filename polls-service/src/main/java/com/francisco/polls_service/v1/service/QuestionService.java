@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
+import com.francisco.polls_service.v1.kafka.producer.RemovedEntityProducer;
 import com.francisco.polls_service.v1.model.Poll;
 import com.francisco.polls_service.v1.model.Question;
 import com.francisco.polls_service.v1.model.QuestionOption;
@@ -22,6 +23,9 @@ public class QuestionService {
 	@Autowired
     private QuestionRepository questionRepository;
 
+	@Autowired
+	RemovedEntityProducer removedEntityProducer;
+	
 	@PreAuthorize("hasAuthority('POLL_READ')")
     public Page<Question> findAll(Pageable pageable) {
         return questionRepository.findAll(pageable);
@@ -67,12 +71,13 @@ public class QuestionService {
     }
 
     @Transactional
-	@PreAuthorize("hasAuthority('POLL_UPDATE')")
+	//@PreAuthorize("hasAuthority('POLL_UPDATE')")
     public void deleteById(Long questionId) {
         if (!questionRepository.existsById(questionId)) {
             throw new EntityNotFoundException("Question not found for id " + questionId);
         }
-    	//submissionAnswerService.deleteByQuestionId(questionId);
+        
+        removedEntityProducer.publishEvent("question", questionId);
         questionRepository.deleteById(questionId);
     }
     
@@ -94,7 +99,7 @@ public class QuestionService {
 	@Transactional
 	@PreAuthorize("hasAuthority('POLL_UPDATE')")
 	public void deleteByPollId(Long pollId) {
-		//submissionService.deleteSubmissionsByPollId(pollId);
+		
 		questionRepository.deleteByPollId(pollId);
 		
 	}

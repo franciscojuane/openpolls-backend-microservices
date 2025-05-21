@@ -10,6 +10,7 @@ import com.francisco.submissions_service.v1.dto.SubmissionRequest;
 import com.francisco.submissions_service.v1.external.PollServiceClient;
 import com.francisco.submissions_service.v1.external.dto.PollResponse;
 import com.francisco.submissions_service.v1.external.dto.QuestionResponse;
+import com.francisco.submissions_service.v1.model.enums.QuestionType;
 
 @Service
 public class SubmissionRequestValidationService {
@@ -65,7 +66,7 @@ public class SubmissionRequestValidationService {
 	}
 	
 	private boolean canHaveMoreThanOneAnswer(QuestionResponse questionResponse) {
-		return "MULTIPLE_CHOICE".equals(questionResponse.getQuestionType()) && questionResponse.getMaxAmountOfSelections() > 1;
+		return QuestionType.MULTIPLE_CHOICE.equals(questionResponse.getQuestionType()) && questionResponse.getMaxAmountOfSelections() > 1;
 	}
 	
 	

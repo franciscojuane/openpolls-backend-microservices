@@ -3,6 +3,7 @@ package com.francisco.submissions_service.v1.external.dto;
 import java.util.List;
 
 import com.francisco.submissions_service.v1.model.common.AbstractModel;
+import com.francisco.submissions_service.v1.model.enums.QuestionType;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,7 +22,7 @@ public class QuestionResponse extends AbstractModel {
 
 	private String subText;
 
-	private String questionType;
+	private QuestionType questionType;
 
 	private Long pollId;
 

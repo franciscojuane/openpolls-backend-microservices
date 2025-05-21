@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.francisco.submissions_service.v1.external.dto.PollResponse;
 import com.francisco.submissions_service.v1.external.dto.QuestionResponse;
 
-@FeignClient("poll-service")
+@FeignClient("polls-service")
 public interface PollServiceClient {
 
 	@RequestMapping(value="/v1/polls/byPollKey/{key}", method = RequestMethod.GET)
@@ -21,6 +21,6 @@ public interface PollServiceClient {
 	public PollResponse findByPollId(@PathVariable Long id);
 	
 	@RequestMapping(value = "/v1/polls/{pollId}/questions", method = RequestMethod.GET)
-	public List<QuestionResponse> getQuestionsByPollId(Long pollId);
+	public List<QuestionResponse> getQuestionsByPollId(@PathVariable Long pollId);
 	
 }

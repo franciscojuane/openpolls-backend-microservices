@@ -29,7 +29,7 @@ public class PublicSubmissionsController {
 	@Autowired
 	PollServiceClient pollServiceClient;
 	
-	@PostMapping("/byPoll/{pollKey}/")
+	@PostMapping("/byPoll/{pollKey}")
 	public ResponseEntity<?> submit(@RequestBody SubmissionRequest submissionRequest, @PathVariable String pollKey, HttpServletRequest httpServletRequest){
 		PollResponse pollResponse = pollServiceClient.findByPollKey(pollKey);
 		if (pollResponse == null) 

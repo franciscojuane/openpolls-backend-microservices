@@ -50,6 +50,7 @@ public class SubmissionService {
 
 	@PreAuthorize("hasAuthority('POLL_DELETE')")
 	public void deleteSubmissionsByPollId(Long pollId) {
+		submissionAnswerService.deleteByPollId(pollId);
 		submissionRepository.deleteByPollId(pollId);
 	}
 

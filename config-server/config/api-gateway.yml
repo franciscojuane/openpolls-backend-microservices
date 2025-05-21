@@ -12,16 +12,34 @@ spring:
             allowedMethods:
               - GET
               - POST
+              - PATCH
               - PUT
               - DELETE
             allowedHeaders: "*"
       routes:
+        - id: users-service-legacy
+          uri: lb://users-service
+          predicates:
+            - Path=/users/**
+          filters:
+            - RemoveRequestHeader= Cookie,Set-Cookie
+            - RewritePath=/users(?<args>.*),/v1/users${args}
+
         - id: users-service-v1
           uri: lb://users-service
           predicates:
             - Path=/v1/users/**
           filters:
             - RemoveRequestHeader= Cookie,Set-Cookie
+
+        - id: submissions-service-legacy-v1
+          uri: lb://submissions-service
+          predicates:
+            - Path=/polls/*/submissions/**
+          filters:
+            - RemoveRequestHeader= Cookie,Set-Cookie
+            - RewritePath=/polls/(?<args1>.*)/submissions/(?<args2>.*),/v1/submissions/byPoll/${args1}/${args2}
+
         - id: polls-service-legacy
           uri: lb://polls-service
           predicates:
@@ -29,18 +47,52 @@ spring:
           filters:
             - RemoveRequestHeader= Cookie,Set-Cookie
             - RewritePath=/polls(?<args>.*),/v1/polls${args}
+
+        - id: submissions-service-legacy-public
+          uri: lb://submissions-service
+          predicates:
+            - Path=/public/polls/*/submissions/**
+          filters:
+            - RewritePath=/public/polls/(?<args>.*)/submissions,/public/v1/submissions/byPoll/${args}
+
+        - id: polls-service-legacy-public
+          uri: lb://polls-service
+          predicates:
+            - Path=/public/polls/**
+          filters:
+            - RemoveRequestHeader= Cookie,Set-Cookie
+            - RewritePath=/public/polls(?<args>.*),/public/v1/polls${args}
+
         - id: polls-service-v1
           uri: lb://polls-service
           predicates:
             - Path=/v1/polls/**
           filters:
             - RemoveRequestHeader= Cookie,Set-Cookie
+
+        - id: auth-service-legacy
+          uri: lb://auth-service
+          predicates:
+            - Path=/auth/**
+          filters:
+            - RemoveRequestHeader= Cookie,Set-Cookie
+            - RewritePath=/auth(?<args>.*),/v1/auth${args}
+
         - id: auth-service-v1
           uri: lb://auth-service
           predicates:
             - Path=/v1/auth/**
           filters:
             - RemoveRequestHeader= Cookie,Set-Cookie
+
+        - id: submissions-service-legacy-v2
+          uri: lb://submissions-service
+          predicates:
+            - Path=/submissions/**
+          filters:
+            - RemoveRequestHeader= Cookie,Set-Cookie
+            - RewritePath=/submissions(?<args>.*),/v1/submissions${args}
+
         - id: submissions-service-v1
           uri: lb://submissions-service
           predicates:
