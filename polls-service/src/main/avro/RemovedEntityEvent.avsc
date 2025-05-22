@@ -1,0 +1,9 @@
+{
+  "type": "record",
+  "name": "RemovedEntityEvent",
+  "namespace": "com.francisco.events",
+  "fields": [
+    { "name": "entityName", "type": "string" },
+    { "name": "entityId", "type": "long" }
+  ]
+}

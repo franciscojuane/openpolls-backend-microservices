@@ -15,11 +15,16 @@ spring:
         ddl-auto: create
   kafka:
     bootstrap-servers: localhost:9092
+    properties:
+      schema.registry.url: http://localhost:8081
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-    admin:
-      auto-create: true
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      properties:
+        specific.avro.reader: true
 eureka:
   client:
     service-url:

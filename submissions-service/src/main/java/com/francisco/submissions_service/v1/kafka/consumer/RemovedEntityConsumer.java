@@ -1,5 +1,6 @@
 package com.francisco.submissions_service.v1.kafka.consumer;
 
+import org.apache.avro.generic.GenericRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,6 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
-import com.francisco.submissions_service.v1.event.RemovedEntityEvent;
 import com.francisco.submissions_service.v1.service.SubmissionAnswerService;
 import com.francisco.submissions_service.v1.service.SubmissionService;
 
@@ -26,15 +26,17 @@ public class RemovedEntityConsumer {
 	SubmissionAnswerService submissionAnswerService;
 
 	@KafkaListener(topics = "removedEntity", groupId = "group-submission-service")
-	public void processEvent(RemovedEntityEvent removedEntityEvent) {
-		logger.info("Removed Entity event received for entity {} and id {}", removedEntityEvent.getEntityName(),
-				removedEntityEvent.getEntityId());
-		switch (removedEntityEvent.getEntityName()) {
+	public void processEvent(GenericRecord genericRecord) {
+		String entityName = genericRecord.get("entityName").toString();
+		Long entityId = Long.parseLong(genericRecord.get("entityId").toString());
+		logger.info("Removed Entity event received for entity {} and id {}", genericRecord.get("entityName"),
+				genericRecord.get("entityId") );
+		switch (entityName) {
 		case "poll":
-			submissionService.deleteSubmissionsByPollId(removedEntityEvent.getEntityId());
+			submissionService.deleteSubmissionsByPollId(entityId);
 			break;
 		case "question":
-			submissionAnswerService.deleteByQuestionId(removedEntityEvent.getEntityId());
+			submissionAnswerService.deleteByQuestionId(entityId);
 			break;
 		}
 	}

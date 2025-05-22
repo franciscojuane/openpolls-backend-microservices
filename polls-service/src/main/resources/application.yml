@@ -5,4 +5,9 @@ spring:
     import: configserver:http://localhost:8888
   cloud:
     config:
+      enabled: true
       fail-fast: true
+logging:
+  level:
+    org.springframework.boot.context.config: TRACE
+    org.springframework.core.env: TRACE

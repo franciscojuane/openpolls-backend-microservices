@@ -15,12 +15,14 @@ spring:
         ddl-auto: create
   kafka:
     bootstrap-servers: localhost:9092
+    properties:
+      schema.registry.url: http://localhost:8081
     consumer:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
       properties:
-        spring.json.trusted.packages: "com.francisco.submissions_service.v1.event,com.francisco.polls_service.v1.event"
-        spring.json.type.mapping: com.francisco.polls_service.v1.event.RemovedEntityEvent:com.francisco.submissions_service.v1.event.RemovedEntityEvent
+        schema.registry.url: http://localhost:8081
+        specific.avro.reader: false
     admin:
       auto-create: true
 eureka:
