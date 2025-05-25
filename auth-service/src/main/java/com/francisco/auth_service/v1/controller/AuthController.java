@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.francisco.openpolls.dto.LoginRequest;
-import com.francisco.openpolls.dto.LoginResponse;
+import com.francisco.auth_service.v1.dto.LoginRequest;
+import com.francisco.auth_service.v1.dto.LoginResponse;
 import com.francisco.openpolls.security.JwtService;
 
 @RequestMapping("/v1/auth")
@@ -44,9 +44,6 @@ public class AuthController {
 		} else {
 			throw new RuntimeException("Incorrect password");
 		}
-		
-		
-		
-		
+
 	}
 }
