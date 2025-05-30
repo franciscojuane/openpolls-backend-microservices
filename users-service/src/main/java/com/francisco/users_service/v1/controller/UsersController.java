@@ -25,6 +25,7 @@ import com.francisco.users_service.v1.repository.UserRepository;
 import com.francisco.users_service.v1.service.UserService;
 
 import jakarta.validation.Valid;
+import jakarta.validation.ValidationException;
 
 @RestController
 @RequestMapping("/v1/users")
@@ -74,6 +75,14 @@ public class UsersController {
 	public ResponseEntity<?> deleteUserById(@PathVariable Long id) {
 		userService.deleteUserById(id);
 		return ResponseEntity.ok().build();
+	}
+	
+	
+	@GetMapping("/findUserByEmail/{email}")
+	public ResponseEntity<?> findUserByEmail(@PathVariable String email){
+		User user = userService.findByEmail(email).orElseThrow(() -> new ValidationException("User not found"));
+		UserResponse userResponse = userMapper.userToUserResponse(user);
+		return ResponseEntity.ok(userResponse);
 	}
 
 
