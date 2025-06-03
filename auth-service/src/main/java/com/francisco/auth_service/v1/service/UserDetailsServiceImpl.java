@@ -1,5 +1,6 @@
 package com.francisco.auth_service.v1.service;
 
+import java.security.Permission;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,9 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import com.francisco.openpolls.model.Permission;
-import com.francisco.openpolls.model.Role;
-import com.francisco.openpolls.model.User;
+import com.francisco.auth_service.v1.external.dto.UserResponse;
 import com.francisco.openpolls.repository.UserRepository;
 
 @Component
@@ -25,10 +24,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		User user = userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found."));
+		UserResponse user = userService.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found."));
 		
 		Set<GrantedAuthority> authorities = new HashSet<>();
-	    for (Role role : user.getRoles()) {
+	    for (String role : user.getRoles()) {
 	        authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
 	        for (Permission permission : role.getPermissions()) {
 	            authorities.add(new SimpleGrantedAuthority(permission.getName()));
