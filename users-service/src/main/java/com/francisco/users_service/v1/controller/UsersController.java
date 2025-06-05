@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.francisco.users_service.v1.dto.UserDetailsResponse;
 import com.francisco.users_service.v1.dto.UserRequest;
 import com.francisco.users_service.v1.dto.UserResponse;
+import com.francisco.users_service.v1.dto.mappers.UserDetailsMapper;
 import com.francisco.users_service.v1.dto.mappers.UserMapper;
 import com.francisco.users_service.v1.model.User;
 import com.francisco.users_service.v1.repository.UserRepository;
@@ -40,6 +42,9 @@ public class UsersController {
 	
 	@Autowired
 	UserMapper userMapper;
+	
+	@Autowired
+	UserDetailsMapper userDetailsMapper;
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getUser(@PathVariable Long id) {
@@ -84,6 +89,13 @@ public class UsersController {
 		User user = userService.findByEmail(email).orElseThrow(() -> new ValidationException("User not found"));
 		UserResponse userResponse = userMapper.userToUserResponse(user);
 		return ResponseEntity.ok(userResponse);
+	}
+	
+	@GetMapping("/findUserDetailsByEmail/{email}")
+	public ResponseEntity<?> findUserDetailsByEmail(@PathVariable String email){
+		UserDetails userDetails = userService.findByEmail(email).orElseThrow(() -> new ValidationException("User not found"));
+		UserDetailsResponse userDetailsResponse = userDetailsMapper.userDetailsToUserDetailsResponse(userDetails);
+		return ResponseEntity.ok(userDetailsResponse);
 	}
 	
 

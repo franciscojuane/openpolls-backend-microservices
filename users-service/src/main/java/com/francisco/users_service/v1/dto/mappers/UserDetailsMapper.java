@@ -4,12 +4,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import com.francisco.users_service.v1.dto.RoleResponse;
+import com.francisco.users_service.v1.dto.GrantedAuthorityResponse;
 import com.francisco.users_service.v1.dto.UserDetailsResponse;
-import com.francisco.users_service.v1.model.Role;
-import com.francisco.users_service.v1.model.User;
 
 @Component
 public class UserDetailsMapper {
@@ -17,30 +17,22 @@ public class UserDetailsMapper {
 	@Autowired
 	RoleMapper roleMapper;
 
-	public UserDetailsResponse userToUserResponse(User user) {
+	public UserDetailsResponse userDetailsToUserDetailsResponse(UserDetails userDetails) {
 		
-		Set<RoleResponse> roleResponses = new HashSet<>();
-		for (Role role: user.getRoles()) {
-			roleResponses.add(roleMapper.roleToRoleResponse(role));
+		Set<GrantedAuthorityResponse> grantedAuthorities = new HashSet<>();
+		for (GrantedAuthority role: userDetails.getAuthorities()) {
+			grantedAuthorities.add(GrantedAuthorityResponse.builder().authority(role.getAuthority()).build());
 		}
 		
 		return UserDetailsResponse.builder()
-	            .id(user.getId())
-	            .firstName(user.getFirstName())
-	            .lastName(user.getLastName())
-	            .password(user.getPassword())
-	            .email(user.getEmail())
-	            .effectiveDate(user.getEffectiveDate())
-	            .expirationDate(user.getExpirationDate())
-	            .creationTime(user.getCreationTime())
-	            .updateTime(user.getUpdateTime())
-	            .roles(roleResponses)
-	            .isAccountNonExpired(user.isAccountNonExpired())
-	            .isAccountNonLocked(user.isAccountNonLocked())
-	            .isCredentialsNonExpired(user.isCredentialsNonExpired())
-	            .isEnabled(user.isEnabled())
-	            .build();
+	           .username(userDetails.getUsername())
+	           .password(userDetails.getPassword())
+	           .authorities(grantedAuthorities)
+	           .accountNonExpired(userDetails.isAccountNonExpired())
+	           .accountNonLocked(userDetails.isAccountNonLocked())
+	           .credentialsNonExpired(userDetails.isCredentialsNonExpired())
+	           .enabled(userDetails.isEnabled())
+	           .build();
 	}
-	
-	
+
 }
