@@ -5,6 +5,15 @@ import java.util.Set;
 
 import com.francisco.users_service.v1.model.Role;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDetailsResponse {
 
 	private Long id;
@@ -25,7 +34,7 @@ public class UserDetailsResponse {
 	
 	public LocalDateTime updateTime;
 	
-	public Set<Role> roles;
+	public Set<RoleResponse> roles;
 	
 	public boolean isAccountNonExpired;
 	
