@@ -8,8 +8,9 @@ import java.util.function.Function;
 import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
+import com.francisco.auth_service.v1.external.dto.UserDetailsResponse;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwsHeader;
@@ -27,22 +28,22 @@ public class JwtService {
 	@Value("${security.jwt.expiration-time}")
 	private long jwtExpiration;
 
-	public String buildToken(Map<String, Object> extraClaims, UserDetails userDetails, long expiration) {
+	public String buildToken(Map<String, Object> extraClaims, UserDetailsResponse userDetailsResponse, long expiration) {
 		SecretKey secretKey = getSecretKey();
 
-		return Jwts.builder().claims(extraClaims).subject(userDetails.getUsername())
+		return Jwts.builder().claims(extraClaims).subject(userDetailsResponse.getUsername())
 				.issuedAt(new Date(System.currentTimeMillis()))
 				.expiration(new Date(System.currentTimeMillis() + expiration * 1000))
 
 				.signWith(secretKey).compact();
 	}
 
-	public String generateToken(UserDetails userDetails) {
-		return generateToken(new HashMap<>(), userDetails);
+	public String generateToken(UserDetailsResponse userDetailsResponse) {
+		return generateToken(new HashMap<>(), userDetailsResponse);
 	}
 
-	public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
-		return buildToken(extraClaims, userDetails, jwtExpiration);
+	public String generateToken(Map<String, Object> extraClaims, UserDetailsResponse userDetailsResponse) {
+		return buildToken(extraClaims, userDetailsResponse, jwtExpiration);
 	}
 
 	public boolean isTokenValid(String token) {
