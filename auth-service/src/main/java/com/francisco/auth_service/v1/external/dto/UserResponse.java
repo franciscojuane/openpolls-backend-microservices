@@ -29,6 +29,6 @@ public class UserResponse {
 	
 	public LocalDateTime updateTime;
 	
-	public Set<String> roles;
+	public Set<RoleResponse> roles;
 
 }
