@@ -49,9 +49,7 @@ public class AuthController {
 			extraClaims.put("firstName", userResponse.getFirstName());
 			extraClaims.put("lastName", userResponse.getLastName());
 			extraClaims.put("roles", userResponse.getRoles());
-			extraClaims.put("firstName", userResponse.getFirstName());
-			extraClaims.put("authorities", userDetails.getAuthorities());
-			String token = jwtService.buildToken(null, userDetails, 3600);
+			String token = jwtService.buildToken(extraClaims, userDetails, 3600);
 			return ResponseEntity.ok(LoginResponse.builder().token(token).build());
 		} else {
 			throw new RuntimeException("Incorrect password");
