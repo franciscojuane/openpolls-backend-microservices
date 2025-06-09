@@ -1,4 +1,4 @@
-package com.francisco.auth_service.configuration;
+package com.francisco.users_service.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,17 +7,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfiguration {
-	/*@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-	    http
-	        .csrf(csrf -> csrf.disable())
-	        .authorizeHttpRequests(auth -> auth
-	            .requestMatchers("/public/**").permitAll()
-	            .anyRequest().authenticated()
-	        )
-	        .oauth2ResourceServer(oauth2 -> oauth2.jwt());
-	    return http.build();
-	}*/
+
 	@Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
@@ -25,7 +15,7 @@ public class SecurityConfiguration {
             .formLogin(form -> form.disable())
             .httpBasic(basic -> basic.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/v1/auth/login", "/public/**").permitAll()
+                .requestMatchers("/v1/users/**","/public/**").permitAll()
                 .anyRequest().authenticated()
             )
             .build();
