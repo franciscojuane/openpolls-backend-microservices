@@ -6,3 +6,5 @@ spring:
   cloud:
     config:
       fail-fast: true
+security:
+  internal-secret: abcdefg

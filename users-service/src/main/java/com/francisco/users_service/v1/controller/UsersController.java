@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,6 +47,9 @@ public class UsersController {
 	
 	@Autowired
 	UserDetailsMapper userDetailsMapper;
+	
+	@Value("${security.internal-secret}")
+	String internalSecret;
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getUser(@PathVariable Long id) {
@@ -85,14 +90,20 @@ public class UsersController {
 	
 	
 	@GetMapping("/findUserByEmail/{email}")
-	public ResponseEntity<?> findUserByEmail(@PathVariable String email){
+	public ResponseEntity<?> findUserByEmail(@PathVariable String email,  @RequestHeader("X-Internal-Secret") String internalSecret){
+		if (!this.internalSecret.equals(internalSecret))
+			throw new ValidationException("Invalid Secret");
+		
 		User user = userService.findByEmail(email).orElseThrow(() -> new ValidationException("User not found"));
 		UserResponse userResponse = userMapper.userToUserResponse(user);
 		return ResponseEntity.ok(userResponse);
 	}
 	
 	@GetMapping("/findUserDetailsByEmail/{email}")
-	public ResponseEntity<?> findUserDetailsByEmail(@PathVariable String email){
+	public ResponseEntity<?> findUserDetailsByEmail(@PathVariable String email,  @RequestHeader("X-Internal-Secret") String internalSecret){
+		if (!this.internalSecret.equals(internalSecret))
+			throw new ValidationException("Invalid Secret");
+		
 		UserDetails userDetails = userService.findByEmail(email).orElseThrow(() -> new ValidationException("User not found"));
 		UserDetailsResponse userDetailsResponse = userDetailsMapper.userDetailsToUserDetailsResponse(userDetails);
 		return ResponseEntity.ok(userDetailsResponse);
