@@ -15,7 +15,7 @@ public class SecurityConfiguration {
             .formLogin(form -> form.disable())
             .httpBasic(basic -> basic.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/v1/users/**","/public/**").permitAll()
+                .requestMatchers("/v1/users/findUserByEmail/*", "/v1/users/findUserDetailsByEmail/*","/public/**").permitAll()
                 .anyRequest().authenticated()
             )
             .build();
