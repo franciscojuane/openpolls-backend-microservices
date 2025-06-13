@@ -2,6 +2,7 @@ package com.francisco.auth_service.v1.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -48,7 +49,8 @@ public class AuthController {
 			Map<String, Object> extraClaims = new HashMap<>();
 			extraClaims.put("firstName", userResponse.getFirstName());
 			extraClaims.put("lastName", userResponse.getLastName());
-			extraClaims.put("roles", userResponse.getRoles());
+			extraClaims.put("roles", userResponse.getRoles().stream().map(role -> role.getName()).collect(Collectors.toList()));
+			extraClaims.put("authorities", userDetails.getAuthorities().stream().map(authority -> authority.getAuthority()).collect(Collectors.toList()));
 			String token = jwtService.buildToken(extraClaims, userDetails, 3600);
 			return ResponseEntity.ok(LoginResponse.builder().token(token).build());
 		} else {
