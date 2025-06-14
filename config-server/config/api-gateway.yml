@@ -2,20 +2,12 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
+security:
+  jwt:
+    secret-key: 1e7088a9cac589687f8421ba722b91e20e4c8afda135fc4bb1edb870beb2f18c
 spring:
   cloud:
     gateway:
-      globalcors:
-        corsConfigurations:
-          "[/**]":
-            allowedOrigins: "http://localhost:8080"
-            allowedMethods:
-              - GET
-              - POST
-              - PATCH
-              - PUT
-              - DELETE
-            allowedHeaders: "*"
       routes:
         - id: users-service-legacy
           uri: lb://users-service
