@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -107,6 +108,16 @@ public class UsersController {
 		UserDetails userDetails = userService.findByEmail(email).orElseThrow(() -> new ValidationException("User not found"));
 		UserDetailsResponse userDetailsResponse = userDetailsMapper.userDetailsToUserDetailsResponse(userDetails);
 		return ResponseEntity.ok(userDetailsResponse);
+	}
+	
+	@GetMapping("/getCurrentUser")
+	public ResponseEntity<?> getCurrentUser(){
+		String userDetails = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = userDetails;
+		
+		User currentUser = userService.findByEmail(username).orElseThrow(()->new RuntimeException("Invalid User"));
+		UserResponse userResponse = userMapper.userToUserResponse(currentUser);
+		return ResponseEntity.ok(userResponse);
 	}
 	
 

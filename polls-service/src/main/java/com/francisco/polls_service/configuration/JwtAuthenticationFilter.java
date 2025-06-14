@@ -9,6 +9,7 @@ import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,11 +29,24 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Value("${security.jwt.secret-key}")
     private String secretKey;
+    
+    @Value("${security.internal-secret}")
+    private String internalSecret;
 
     @Override
     protected void doFilterInternal(HttpServletRequest req,
                                     HttpServletResponse res,
                                     FilterChain filterChain) throws ServletException, IOException {
+    	
+    	String internalSecret = req.getHeader("X-Internal-Api-Key");
+    	    
+    	if (this.internalSecret.equals(internalSecret)) {
+    	        List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_INTERNAL"));
+                Authentication auth = new UsernamePasswordAuthenticationToken("internal", null, authorities);
+                SecurityContextHolder.getContext().setAuthentication(auth);
+    	        filterChain.doFilter(req, res);
+    	        return;
+    	}
 
         String authHeader = req.getHeader("Authorization");
 

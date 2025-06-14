@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.francisco.submissions_service.v1.dto.SubmissionRequest;
-import com.francisco.submissions_service.v1.external.PollServiceClient;
+import com.francisco.submissions_service.v1.external.PollService;
 import com.francisco.submissions_service.v1.external.dto.PollResponse;
 import com.francisco.submissions_service.v1.service.SubmissionAnswerService;
 import com.francisco.submissions_service.v1.service.SubmissionService;
@@ -27,11 +27,11 @@ public class PublicSubmissionsController {
 	SubmissionAnswerService submissionAnswerService;
 	
 	@Autowired
-	PollServiceClient pollServiceClient;
+	PollService pollService;
 	
 	@PostMapping("/byPoll/{pollKey}")
 	public ResponseEntity<?> submit(@RequestBody SubmissionRequest submissionRequest, @PathVariable String pollKey, HttpServletRequest httpServletRequest){
-		PollResponse pollResponse = pollServiceClient.findByPollKey(pollKey);
+		PollResponse pollResponse = pollService.findByPollKeyWithInternalSecret(pollKey);
 		if (pollResponse == null) 
 			throw new IllegalArgumentException("Poll not found for provided key.");
 		submissionRequest.setPollId(pollResponse.getId());

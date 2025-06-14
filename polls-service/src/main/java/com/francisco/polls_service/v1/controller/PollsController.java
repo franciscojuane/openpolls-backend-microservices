@@ -23,6 +23,7 @@ import com.francisco.polls_service.v1.service.PollService;
 import com.francisco.polls_service.v1.service.QuestionService;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.ValidationException;
 
 @RestController
 @RequestMapping("/v1/polls")
@@ -60,6 +61,8 @@ public class PollsController {
 	@GetMapping("/byPollKey/{key}")
 	public ResponseEntity<?> getPollByKey(@PathVariable String key) {
 		Poll poll = pollService.findByPollKey(key);
+		if (poll == null)
+			throw new ValidationException("Poll not found");
 		PollResponse pollResponse = pollMapper.pollToPollResponse(poll);
 		return ResponseEntity.ok(pollResponse);
 	}

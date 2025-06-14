@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.francisco.submissions_service.v1.dto.SubmissionRequest;
 import com.francisco.submissions_service.v1.external.PollServiceClient;
+import com.francisco.submissions_service.v1.external.PollService;
 import com.francisco.submissions_service.v1.external.dto.PollResponse;
 import com.francisco.submissions_service.v1.external.dto.QuestionResponse;
 import com.francisco.submissions_service.v1.model.enums.QuestionType;
@@ -16,7 +17,7 @@ import com.francisco.submissions_service.v1.model.enums.QuestionType;
 public class SubmissionRequestValidationService {
 
 	@Autowired
-	PollServiceClient pollServiceClient;
+	PollService pollService;
 	
 	@Autowired
 	@Lazy
@@ -29,7 +30,7 @@ public class SubmissionRequestValidationService {
 	}
 
 	private void checkSubmissionLimits(SubmissionRequest submissionRequest) {
-		PollResponse pollResponse = pollServiceClient.findByPollId(submissionRequest.getPollId());
+		PollResponse pollResponse = pollService.findByPollIdWithInternalSecret(submissionRequest.getPollId());
 		switch (pollResponse.getSubmissionLimitCriteria()) {
 		case EMAIL:
 			if (submissionService.getAmountOfSubmissionsByPollIdAndEmailAddress(pollResponse.getId(), submissionRequest.getEmailAddress()) > 0) {
@@ -47,7 +48,7 @@ public class SubmissionRequestValidationService {
 	}
 
 	private void checkQuestionsAmountOfAnswers(SubmissionRequest submissionRequest) {
-		List<QuestionResponse> questions = pollServiceClient.getQuestionsByPollId(submissionRequest.getPollId());
+		List<QuestionResponse> questions = pollService.getQuestionsByPollIdWithInternalSecret(submissionRequest.getPollId());
 		for(QuestionResponse question: questions) {
 			int amountOfAnswersForQuestion = submissionRequest.getSubmissionAnswers().stream().filter(elem -> elem.getQuestionId() == question.getId()).toList().size();
 			if (canHaveMoreThanOneAnswer(question)) {
