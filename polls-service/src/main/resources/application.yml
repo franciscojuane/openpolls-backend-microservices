@@ -7,6 +7,11 @@ spring:
     config:
       enabled: true
       fail-fast: true
+      retry:
+        max-attempts: 10
+        initial-interval: 2000
+        multiplier: 1.5
+        max-interval: 10000
 logging:
   level:
     org.springframework.boot.context.config: TRACE
