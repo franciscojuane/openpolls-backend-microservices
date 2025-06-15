@@ -92,9 +92,6 @@ public class UsersController {
 	
 	@GetMapping("/findUserByEmail/{email}")
 	public ResponseEntity<?> findUserByEmail(@PathVariable String email,  @RequestHeader("X-Internal-Secret") String internalSecret){
-		if (!this.internalSecret.equals(internalSecret))
-			throw new ValidationException("Invalid Secret");
-		
 		User user = userService.findByEmail(email).orElseThrow(() -> new ValidationException("User not found"));
 		UserResponse userResponse = userMapper.userToUserResponse(user);
 		return ResponseEntity.ok(userResponse);
@@ -102,9 +99,6 @@ public class UsersController {
 	
 	@GetMapping("/findUserDetailsByEmail/{email}")
 	public ResponseEntity<?> findUserDetailsByEmail(@PathVariable String email,  @RequestHeader("X-Internal-Secret") String internalSecret){
-		if (!this.internalSecret.equals(internalSecret))
-			throw new ValidationException("Invalid Secret");
-		
 		UserDetails userDetails = userService.findByEmail(email).orElseThrow(() -> new ValidationException("User not found"));
 		UserDetailsResponse userDetailsResponse = userDetailsMapper.userDetailsToUserDetailsResponse(userDetails);
 		return ResponseEntity.ok(userDetailsResponse);
