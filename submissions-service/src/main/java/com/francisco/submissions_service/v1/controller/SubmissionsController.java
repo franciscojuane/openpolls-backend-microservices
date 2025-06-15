@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.francisco.submissions_service.v1.dto.SubmissionTableResponse;
-import com.francisco.submissions_service.v1.external.PollServiceClient;
+import com.francisco.submissions_service.v1.external.PollService;
 import com.francisco.submissions_service.v1.external.dto.QuestionResponse;
 import com.francisco.submissions_service.v1.model.Submission;
 import com.francisco.submissions_service.v1.model.SubmissionAnswer;
@@ -32,7 +32,7 @@ public class SubmissionsController {
 	SubmissionAnswerService submissionAnswerService;
 	
 	@Autowired
-	PollServiceClient pollServiceClient;
+	PollService pollService;
 	
 	
 	@GetMapping("/byPoll/{pollId}/table")
@@ -45,7 +45,7 @@ public class SubmissionsController {
 	public SubmissionTableResponse generateSubmissionsMapForPollId(Long pollId, Pageable pageable) {
 		SubmissionTableResponse submissionTableResponse = new SubmissionTableResponse();
 		
-		List<QuestionResponse> questions = pollServiceClient.getQuestionsByPollId(pollId);
+		List<QuestionResponse> questions = pollService.getQuestionsByPollId(pollId);
 		Page<Submission> submissions = submissionService.findByPollIdOrderById(pollId, pageable);
 		for (Submission submission: submissions) {
 			List<SubmissionAnswer> submissionAnswers = submissionAnswerService.findBySubmissionIdOrderById(submission.getId());
