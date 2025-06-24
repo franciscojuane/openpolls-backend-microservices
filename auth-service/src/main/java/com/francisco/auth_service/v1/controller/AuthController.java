@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.francisco.auth_service.v1.dto.LoginRequest;
 import com.francisco.auth_service.v1.dto.LoginResponse;
-import com.francisco.openpolls.security.JwtService;
+import com.francisco.auth_service.v1.security.JwtService;
 
 @RequestMapping("/v1/auth")
 @RestController
