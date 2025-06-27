@@ -4,6 +4,8 @@
 
 The OpenPolls Backend has been restructured from a monolithic application to a distributed **microservices architecture** using **Spring Boot**, **Spring Cloud**, and **Docker Compose**. Each service is responsible for a specific domain, enabling independent deployment, better scalability, and easier maintenance.
 
+This project is designed to work with the [OpenPolls Frontend (Vue 3)](https://github.com/franciscojuane/openpolls-frontend-vue3) and [OpenPolls Frontend (Vue 2)](https://github.com/franciscojuane/openpolls-frontend).
+
 ---
 
 ## Microservices Overview
@@ -44,7 +46,7 @@ The OpenPolls Backend has been restructured from a monolithic application to a d
 - **Kafka** – Event streaming and asynchronous communication
 - **Docker + Docker Compose** – Environment orchestration
 - **Lombok** – Reduces Java boilerplate
-- **PostgreSQL / H2** – Per-service database management
+- **H2 Database** – In-memory database
 
 ---
 
