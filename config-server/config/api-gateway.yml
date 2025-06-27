@@ -1,7 +1,9 @@
+server:
+  port: 5000
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://discovery-server:8761/eureka
 security:
   jwt:
     secret-key: 1e7088a9cac589687f8421ba722b91e20e4c8afda135fc4bb1edb870beb2f18c
@@ -91,5 +93,4 @@ spring:
             - Path=/v1/submissions/**
           filters:
             - RemoveRequestHeader= Cookie,Set-Cookie
-server:
-  port: 5000
+

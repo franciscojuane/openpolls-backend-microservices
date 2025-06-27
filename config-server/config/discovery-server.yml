@@ -5,7 +5,13 @@ eureka:
   client:
     register-with-eureka: false
     fetch-registry: false
+    service-url:
+      defaultZone: http://discovery-server:8761/eureka/
   instance:
-    hostname: localhost
+    hostname: discovery-server
+    prefer-ip-address: true
   server:
     waitTimeInMsWhenSyncEmpty: 5
+    enable-self-preservation: false
+  peer-eureka-nodes-update:
+    enabled: false

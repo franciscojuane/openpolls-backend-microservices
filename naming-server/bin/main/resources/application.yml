@@ -1,8 +1,8 @@
 spring:
   application:
-    name: users-service
+    name: discovery-server
   config:
-    import: configserver:http://config-server:8888
+    import: configserver:http://localhost:8888
   cloud:
     config:
       fail-fast: true
@@ -11,6 +11,3 @@ spring:
         initial-interval: 2000
         multiplier: 1.5
         max-interval: 10000
-logging:
-  level:
-    org.springframework.security: DEBUG
