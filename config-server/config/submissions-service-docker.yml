@@ -16,12 +16,12 @@ spring:
   kafka:
     bootstrap-servers: kafka:9092
     properties:
-      schema.registry.url: http://kafka:8081
+      schema.registry.url: http://schema-registry:8081
     consumer:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
       properties:
-        schema.registry.url: http://kafka:8081
+        schema.registry.url: http://schema-registry:8081
         specific.avro.reader: false
     admin:
       auto-create: true

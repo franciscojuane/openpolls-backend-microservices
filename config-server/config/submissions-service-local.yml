@@ -1,0 +1,43 @@
+server:
+  port: 8003
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+      hibernate:
+        ddl-auto: create
+  kafka:
+    bootstrap-servers: localhost:9092
+    properties:
+      schema.registry.url: http://localhost:8081
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      properties:
+        schema.registry.url: http://localhost:8081
+        specific.avro.reader: false
+    admin:
+      auto-create: true
+security:
+  jwt:
+    secret-key: 1e7088a9cac589687f8421ba722b91e20e4c8afda135fc4bb1edb870beb2f18c
+  internal-secret: abcdefg
+resilience4j:
+  retry:
+    instances:
+      pollService:
+        maxAttempts: 3
+        waitDuration: 500ms
+  circuitbreaker:
+    instances:
+      pollService:
+        failureRateThreshold: 50
+        waitDurationInOpenState: 30s
+        slidingWindowsSize: 10
