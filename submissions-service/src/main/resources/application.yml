@@ -1,3 +1,5 @@
 spring:
   application:
     name: submissions-service
+  profiles:
+    default: local
