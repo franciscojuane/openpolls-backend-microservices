@@ -41,7 +41,7 @@ The OpenPolls Backend has been restructured from a monolithic application to a d
 - **Spring Cloud Eureka** – Service registration and discovery
 - **Spring Security + JWT** – Secure, stateless authentication and authorization
 - **Spring Data JPA** – Simplified data access layer
-- **Kafka** (optional) – Event streaming and asynchronous communication
+- **Kafka** – Event streaming and asynchronous communication
 - **Docker + Docker Compose** – Environment orchestration
 - **Lombok** – Reduces Java boilerplate
 - **PostgreSQL / H2** – Per-service database management
